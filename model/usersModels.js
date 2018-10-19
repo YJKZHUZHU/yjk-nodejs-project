@@ -7,7 +7,7 @@
 
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://127.0.0.1:27017';
-
+const async = require('async')
 const usersModel = {
   /**
    * 注册操作
@@ -16,7 +16,13 @@ const usersModel = {
    */
   add (data, cb) {
     MongoClient.connect(url, function(err, client) {
-      if (err) throw err;
+      if (err) {
+        console.log('连接数据库失败',err)
+        cb({code: -100, msg: '连接数据库失败'})
+        return
+      }
+      //这里不需要关闭数据库
+      
       const db = client.db('yjk');
 
       // 1. 对 data 里面的 isAdmin 修改为 is_admin
@@ -31,35 +37,44 @@ const usersModel = {
         phone: data.phone,
         is_admin: data.isAdmin
       };
-
-
-
-      console.log(saveData);
-
-      db.collection('users').find({username: saveData.username}).count(function(err, num) {
-        // 如果 num 为 0 ，没有注册，否则已经注册了
-        if (err) throw err;
-        if (num === 0) {
-          db.collection('users').find().count(function(err, num1) {
-            if (err) throw err;
-            saveData._id = num1 + 1;
-
-            console.log(saveData);
-
-            db.collection('users').insertOne(saveData, function(err) {
-              if (err) throw err;
-              cb(null);
-                console.log(333)
-              client.close();
-            })
-
-
-          });
-        } else {
-          cb('已经注册过了');
-          client.close();
+      //=========使用async的串行无关联来写=======================
+      async.series([
+        function(callback) {
+          db.collection('users').find({uname: saveData.username}).count(function(err,num) {
+            if (err) {
+              callback({code: -101, msg: '查询是否已经注册失效'})
+            }
+          })
         }
-      })
+      ])
+
+
+      // console.log(saveData);
+
+      // db.collection('users').find({username: saveData.username}).count(function(err, num) {
+      //   // 如果 num 为 0 ，没有注册，否则已经注册了
+      //   if (err) throw err;
+      //   if (num === 0) {
+      //     db.collection('users').find().count(function(err, num1) {
+      //       if (err) throw err;
+      //       saveData._id = num1 + 1;
+
+      //       console.log(saveData);
+
+      //       db.collection('users').insertOne(saveData, function(err) {
+      //         if (err) throw err;
+      //         cb(null);
+      //           console.log(333)
+      //         client.close();
+      //       })
+
+
+      //     });
+      //   } else {
+      //     cb('已经注册过了');
+      //     client.close();
+      //   }
+      // })
     })
   }
 }

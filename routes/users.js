@@ -18,15 +18,22 @@ router.post('/register', function(req, res) {
     // if (!/^\w{5,10}$/.test(req.body.username)){
     // res.send('用户名不能为空')
     res.render('yjkerror')
+    return
   } else if ((req.body.password != req.body.repassword) &&  req.body.password != '') {
     res.render('yjkerror')
   } else {
         usersModel.add(req.body, function (err) {
         console.log(req.body)
-        if (err) throw err
-        //注册成功，跳到登入页面
-        // res.send('hello node')
-        res.render('login')
+        if (err) {
+          res.render('yjkerror')
+        }else {
+            //注册成功，跳到登入页面
+            // res.send('hello node')
+            // res.render('login')
+            //不应该是渲染，而应该是跳转
+            res.redirect('/login.html')
+        }
+        
       })
   }
   
