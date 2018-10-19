@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/use-manager.css">
+</head>
+<body>
+
+  <div class="index">
+
+    <%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
+
+    <div class="container">
+
+      <%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
+
+      <div class="main">
+        <div class="search">
+          <input type="text" class="nickname-search" placeholder="输入用户昵称">
+          <button class="serchbtn">搜索</button>
+        </div>
+        <table border="1">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>用户名</th>
+              <th>用户昵称</th>
+              <th>手机号码</th>
+              <th>性别</th>
+              <th>年龄</th>
+              <th>是否管理员</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- 循环 userList 显示用户数据 -->
+            <% for (var i = 0; i < userList.length; i++) { %>
+              <tr>
+                <td><%= userList[i]._id %></td>
+                <td><%= userList[i].username %></td>
+                <td><%= userList[i].nickname %></td>
+                <td><%= userList[i].phone %></td>
+                <td><%= userList[i].sex || '-' %></td>
+                <td><%= userList[i].age || '-' %></td>
+                <td><%= parseInt(userList[i].is_admin) ? '是' : '否' %></td>
+                <td class="lasttd">
+                  <!--
+                    1. 如果当前登录的管理员跟这条记录匹配。那么可以修改，
+                    2. 如果这条记录是管理员记录的话，那么不可以删除
+                   -->
+
+                  <% if (userList[i].username === username) { %>
+                    <a href="#" class="rewrite">修改</a>
+                  <% } else if (parseInt(userList[i].is_admin)) { %>
+
+                  <% } else { %>
+                    <a href="#" class="rewrite">修改</a>
+                    <a href="#" class="delete">删除</a>
+                  <% } %>
+
+                </td>
+              </tr>
+            <% } %>
+
+          </tbody>
+        </table>
+
+        <!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
+
+        <ul class="list-page">
+            <li class="left list-p">
+              <a href="/user-manager.html?page=<%= --page %>"><<</a>
+            </li>
+          <% for (var i = 0; i < totalPage; i++) { %>
+            <li class="list-p">
+              <a href="/user-manager.html?page=<%= i+1 %>" ><%= i+1 %></a>
+            </li>
+          <% } %>
+          <li class="right list-p">
+              <a href="#">>></a>
+            </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

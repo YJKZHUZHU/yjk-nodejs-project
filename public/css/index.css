@@ -1,0 +1,88 @@
+.index {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.index .header {
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #000;
+}
+.houtai {
+  font-size: 24px;
+  margin-left: 40px
+}
+.welcom {
+  font-weight: 800;
+  /* font-size: 20px; */
+  margin-right: 30px
+}
+.loutbtn {
+  border-radius: 4px;
+  margin-right: 20px;
+  margin-top: 10px;
+  height: 40px;
+  display: block;
+  background: #428BCA;
+  border: 0
+}
+.loutbtn a {
+  text-decoration: none;
+  display: inline-block;
+  color: #ffffff;
+}
+.index .container {
+  display: flex;
+  flex: 1;
+}
+
+.container .menu {
+  width: 260px;
+  height: 100%;
+}
+
+.container .main {
+  flex: 1;
+  height: 100%;
+}
+
+/* // ======== [头部样式] ======== */
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header .header_left {
+
+}
+
+.header .header_right {
+  display: flex;
+}
+
+/* // ======== [左侧菜单] ======== */
+.menu {
+  border-right: 1px solid #000;
+}
+
+.menu .menu_item {
+  height: 50px;
+  line-height: 50px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E7E7E7;
+  text-align: center;
+  cursor: pointer;
+}
+.menu_item a {
+  text-decoration: none;
+  display: inline-block;
+  color: #616161;
+  font-size: 18px;
+}
+.menu_item:hover {
+  background: #428BCA;
+}
+.menu_item:hover a{
+  color:#ffffff;
+}

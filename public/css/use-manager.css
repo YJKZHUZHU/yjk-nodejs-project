@@ -1,0 +1,82 @@
+.search {
+   padding: 30px;
+   border-bottom: 2px solid #dddddd;
+}
+.nickname-search {
+    width: 200px;
+    height: 32px;
+    border: 2px solid #dddddd;
+    outline:none;
+    margin-right: 30px;
+
+}
+.serchbtn {
+    border: none;
+    height: 32px;
+    width: 40px;
+    background: grey;
+    color: #ffffff;
+}
+table {
+    margin: auto;
+    margin-top: 50px;
+    border: 1px solid #797979;
+}
+th {
+    height: 50px
+}
+td {
+    width: 120px;
+    height: 30px;
+    text-align: center;
+}
+.rewrite {
+    display: inline-block;
+    color: #169BD5;
+    text-decoration: none;
+    margin-left: 40px;
+}
+.delete {
+    display: inline-block;
+    color: red;
+    text-decoration: none;
+    margin-left: 45px; 
+}
+.lasttd {
+    width: 200px;
+    text-align: left
+}
+
+.list-page {
+    width: 300px;
+    position: relative;
+    top: 20px;
+    left: 820px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: none
+}
+.list-p {
+    float: left;
+    
+}
+.list-p a {
+    display: inline-block;
+    background: #FFFFFF;
+    text-decoration: none;
+    border: 1px solid #dddddd;
+    height: 25px;
+    width: 40px;
+    text-align: center;
+    line-height: 25px;
+    color: #337AB7;
+}
+.list-p a:hover {
+    background: #337AB7;
+}
+.list-p:hover a {
+    color: #ffffff;
+}
+.left {
+    
+}
