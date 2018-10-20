@@ -7,6 +7,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/index.css">
+  <!-- <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"> -->
 </head>
 <body>
 
@@ -19,10 +20,16 @@
       <%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
 
       <div class="main">
+        <p class="welyan">匿名留言板</p>
+        <a href="/publish.html" class="publish">发表留言</a>
+        <ul class="message">
+            <% for(var i in comments){ %>
+            <li class="list-group-item message-item"><span class="send-Name"><%= comments[i].name %></span>说：<span class="mesage"><%= comments[i].message %></span> <span class="pull-right"><%= comments[i].dateTime %></span></li>
+            <% } %>
+              
+        </ul>
+        
 
-        <p>Welcome</p>
-
-        <img src="/images/pig.jpg" alt="">
 
       </div>
     </div>

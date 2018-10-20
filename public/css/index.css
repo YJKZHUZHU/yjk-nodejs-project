@@ -53,10 +53,6 @@
   justify-content: space-between;
 }
 
-.header .header_left {
-
-}
-
 .header .header_right {
   display: flex;
 }
@@ -85,4 +81,46 @@
 }
 .menu_item:hover a{
   color:#ffffff;
+}
+.main .welyan {
+  padding-left: 20px;
+  font-size: 24px;
+  color: #ffffff;
+  background: #47963D;
+  margin-bottom: 40px;
+}
+.publish {
+  display: inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #47963D;
+  border-radius: 4px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+}
+.message {
+  border-top: 3px solid #47963D;
+  padding: 20px;
+  height: 420px;
+  overflow: hidden;
+}
+.message-item {
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px solid #dddddd;
+  padding-left: 20px;
+}
+.pull-right {
+  color: #616161;
+}
+.send-Name {
+  color: #47963D;
+  padding-right: 15px;
+}
+.mesage {
+  color: deeppink;
 }

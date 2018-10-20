@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/use-manager.css">
+  <script src="/lib/jquery/jquery.min.js"></script>
 </head>
 <body>
 
@@ -56,12 +57,12 @@
                    -->
 
                   <% if (userList[i].username === username) { %>
-                    <a href="#" class="rewrite">修改</a>
+                    <a href="/modification.html" class="rewrite">修改</a>
                   <% } else if (parseInt(userList[i].is_admin)) { %>
 
                   <% } else { %>
-                    <a href="#" class="rewrite">修改</a>
-                    <a href="#" class="delete">删除</a>
+                    <a href="/modification" class="rewrite">修改</a>
+                    <a href="/delete?id=<%= userList[i]._id %>" class="delete">删除</a>
                   <% } %>
 
                 </td>
@@ -75,7 +76,7 @@
 
         <ul class="list-page">
             <li class="left list-p">
-              <a href="/user-manager.html?page=<%= --page %>"><<</a>
+                <a href="/user-manager.html" id="left"><<</a>
             </li>
           <% for (var i = 0; i < totalPage; i++) { %>
             <li class="list-p">
@@ -83,8 +84,8 @@
             </li>
           <% } %>
           <li class="right list-p">
-              <a href="#">>></a>
-            </li>
+              <a href="/user-manager.html" id="rigth">>></a>
+          </li>
         </ul>
 
       </div>
@@ -93,3 +94,32 @@
 
 </body>
 </html>
+<script>
+  $(function(){
+    var str = location.href;
+    var page = str.split("=")[1] 
+    var tol = $('.list-p').length -2;
+    console.log(tol)
+    // console.log(p)
+    $("#left").click(function(){
+      if(!page) {
+        page = 1
+      }
+      page--
+      if(page === 0){
+        page =1
+      }
+      $(this).attr("href",`/user-manager.html?page=${page}`)
+    })
+    $('#rigth').click(function() {
+      if (!page){
+        page = 1
+      }
+        page ++;
+        if (page > tol){
+          page = tol
+        }
+      $(this).attr("href",`/user-manager.html?page=${page}`)
+    })
+  })
+</script>

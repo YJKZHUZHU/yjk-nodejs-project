@@ -87,14 +87,16 @@ router.post('/login', function(req, res) {
 router.get('/logout', function(req, res) {
   // 清除cookie
   // 跳转 登录页
-
+  if(!req.cookies.username) {
+    res.redirect('/login.html')
+  }
   res.clearCookie('username');
   res.clearCookie('nickname');
   res.clearCookie('isAdmin');
 
   // res.redirect(200, '/login.html');
 
-  res.redirect('/login.html');
+  res.send('<script>location.replace("/")</script>')
 
   // res.location('back');
   // res.end();

@@ -1,18 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var usersModel = require('../model/usersModels');
-
+var Publish = require('../publish')
 // 首页
 router.get('/', function(req, res, next) {
   console.log('返回的操作是否有进来');
   // 判断用户是否已经登录，如果登录就返回首页，否则返回 登录页面
   if (req.cookies.username) {
     // 需要将 用户登录信息，传递给页面
-    res.render('index', {
-      username: req.cookies.username,
-      nickname: req.cookies.nickname,
-      isAdmin: parseInt(req.cookies.isAdmin) ? '(管理员)' : ''
-    });
+    
+    Publish.find(function (err, publish) {
+      if (err) {
+        return res.status(500).send('Server error.')
+      }
+      res.render('index', {
+        username: req.cookies.username,
+        nickname: req.cookies.nickname,
+        isAdmin: parseInt(req.cookies.isAdmin) ? '(管理员)' : '',
+        comments: publish
+      });
+    })
   } else {
     // 跳转到登陆页面
     res.redirect('/login.html');
@@ -38,7 +45,7 @@ router.get('/user-manager.html', function(req, res) {
     // 需要查询数据库
     // 从前端取得2个参数
     let page = req.query.page || 1; // 页码
-    let pageSize = req.query.pageSize || 5; // 每页显示的条数
+    let pageSize = req.query.pageSize || 2; // 每页显示的条数
 
     usersModel.getUserList({
       page: page,
@@ -75,5 +82,39 @@ router.get('/mobile-manager.html', function(req, res) {
     res.redirect('/login.html');
   }
 })
+// 渲染添加评论页面
+router.get('/publish.html', function(req, res) {
+  console.log('留言页面进来了')
+  res.render('publish')
+})
+// router.get('/post.html', function (req, res) {
+//   res.render('publish')
+// })
+router.post('/post', function (req,res) {
+  // var comment = req.body
+  // comment.dateTime = '2017-11-5 10:58:51'
+  // comments.unshift(comment)
+  // console.log(comment)
+  // console.log(req.body)
+  Publish.save(req.body, function (err) {
+    if (err) {
+      return res.status(500).send('Server error.')
+    }
+    res.redirect('/')
+  })
+})
+router.get('/delete', function(req, res) {
+  var id = JSON.parse(req.query.id);
+  usersModel.delete(id,function(err) {
+    if (err) {
+      res.render('werror', err);
+    }
+  })
+  res.redirect('/user-manager.html');
+})
+//渲染修改数据
+router.get('/modification.html',function(req, res) {
 
+  res.render('modification')
+})
 module.exports = router;

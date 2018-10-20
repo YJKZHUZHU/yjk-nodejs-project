@@ -49,12 +49,16 @@ td {
 
 .list-page {
     width: 300px;
-    position: relative;
-    top: 20px;
-    left: 820px;
+    position: absolute;
+    top: 400px;
+    left: 1000px;
+    height: 27px;
     border-radius: 4px;
-    overflow: hidden;
-    border: none
+    /* overflow: hidden; */
+    border: none;
+    /* overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap; */
 }
 .list-p {
     float: left;
@@ -76,7 +80,4 @@ td {
 }
 .list-p:hover a {
     color: #ffffff;
-}
-.left {
-    
 }

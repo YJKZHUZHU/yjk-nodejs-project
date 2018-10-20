@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/signin.css" rel="stylesheet">
+    <style>
+        .new-nickName {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .new-PhoneNumber {
+            margin-bottom: 20px
+        }
+        .canuse {
+        color: greenyellow
+      }
+      .canont {
+        color: darkviolet
+      }
+      .nonooo {
+        position: absolute;
+        right: -217px;
+        top:14px;
+        display: none;
+        display: inline-block;
+        width: 200px;
+        text-align: left
+      }
+      .np {
+          position: relative;
+      }
+      .user-mod {
+          color: #337AB7;
+          display:block;
+          text-align: center
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading user-mod">用户信息修改</h2>
+        <div class="np">
+            <label for="" class="sr-only">昵称</label>
+            <input type="text"  class="form-control new-nickName" id="new-nickName" placeholder="输入你的新昵称"  >
+            <span class="nonooo" id="nonooo"></span>
+        </div>
+        <div class="np">
+            <label for="" class="sr-only">电话号码</label>
+            <input type="text" class="form-control new-PhoneNumber" id="new-PhoneNumber" placeholder="输入你的新号码">
+            <span class="nonooo" id="nonooo4"></span>
+        </di>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="modification">确认修改</button>
+      </form>
+
+    </div> 
+  </body>
+</html>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script>
+    $(function(){
+        $('#modification').attr('disabled','disabled')
+        $("#new-nickName").change(function(){
+            if(!/^\w{5,10}$/.test($(this).val())){
+                $("#nonooo").html('昵称长度5-10位！').addClass('canont').fadeIn('fast')
+            } else {
+                $("#nonooo").html('昵称可用').removeClass('canont').addClass('canuse').fadeIn('fast')
+                if($('#new-PhoneNumber').val() === ''){
+                    $("#nonooo4").html('手机号不能为空').addClass('canont').fadeIn('fast')
+                }else {
+                    $('#modification').removeAttr('disabled')
+                }
+            }
+        })
+        $('#new-PhoneNumber').change(function(){
+         if (!(/^1[34578]\d{9}$/).test($(this).val())) {
+            
+            $('#modification').attr('disabled','disabled')
+         } else {
+            $("#nonooo4").html('手机号正确').removeClass('canont').addClass('canuse').fadeIn('fast')
+            if($("#new-nickName").val() === ''){
+                $('#modification').attr('disabled','disabled')
+            }else {
+                $('#modification').removeAttr('disabled')
+            }
+           
+         }
+     })
+    })
+</script>
