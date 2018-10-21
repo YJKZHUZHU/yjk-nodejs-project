@@ -52,7 +52,7 @@ router.get('/user-manager.html', function(req, res) {
       pageSize: pageSize
     }, function(err, data) {
       if (err) {
-        res.render('werror', err);
+        res.render('yjkerror', err);
       } else {
         res.render('user-manager', {
           username: req.cookies.username,
@@ -112,9 +112,60 @@ router.get('/delete', function(req, res) {
   })
   res.redirect('/user-manager.html');
 })
-//渲染修改数据
+//渲染修改数据页面
 router.get('/modification.html',function(req, res) {
-
+  
   res.render('modification')
+})
+//修改数据
+router.post('/modefication',function(req,res) {
+  var id = JSON.parse(req.body.id)//转成numberleix
+  var modimes = req.body
+  req.body.id = id
+  console.log(typeof req.body.id)
+  console.log(modimes)
+  usersModel.update(modimes,function(err) {
+    if (err) {
+      res.render('werror', err);
+    }
+  })
+  res.redirect('/user-manager.html')
+})
+
+
+//渲染搜索页面
+router.get('/search.html', function(req,res) {
+    let page = req.query.page || 1; // 页码
+    let pageSize = req.query.pageSize || 5; // 每页显示的条数
+    let nickname = req.query.nickname
+    console.log(typeof nickname)
+    usersModel.search({
+      page: page,
+      pageSize: pageSize,
+      nickname:nickname
+    }, function(err, data) {
+      if (err) {
+        res.render('yjkerror', err);
+      } else {
+        res.render('search', {
+          username: req.cookies.username,
+          nickname: req.cookies.nickname,
+          isAdmin: parseInt(req.cookies.isAdmin) ? '(管理员)' : '',
+          userList: data.userList,
+         
+          totalPage: data.totalPage,
+          page: data.page
+         
+        });
+      }
+    // res.render('search')
+    });
+
+
+//搜索功能
+
+
+
+  
 })
 module.exports = router;

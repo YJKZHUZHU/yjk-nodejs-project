@@ -294,6 +294,97 @@ const usersModel = {
         client.close()
       }
     })
+  },
+  update(data,cb){
+    MongoClient.connect(url, function (err,client) {
+      if (err) {
+        cb({code:-100,msg:"数据库连接失败"})
+      } else {
+        const db = client.db('yjk')
+        db.collection('users').updateOne({_id:data.id},{$set: {
+          nickname:data.newNickName,
+          phone:data.newPhoneNumber
+        }})
+        client.close()
+      }
+    })
+  },
+  search(data,cb) {
+    MongoClient.connect(url, function (err, client) {
+      if (err) {
+        cb({code: -100, msg: '数据库连接失败'})
+      }else {
+        var db = client.db('yjk');
+
+        var limitNum = parseInt(data.pageSize);
+        var skipNum = data.page * data.pageSize - data.pageSize;
+        var nickname = new RegExp(data.nickname)
+        async.parallel([
+          function (callback) {
+            // 查询所有记录
+            db.collection('users').find({nickname:nickname}).count(function(err, num) {
+              if (err) {
+                callback({code: -101, msg: '查询数据库失败'});
+              } else {
+                // console.log('ah'+num)
+                callback(null, num);
+              }
+            })
+          },
+          function (callback) {
+            // 查询分页的数据
+            db.collection('users').find({nickname:nickname}).limit(limitNum).skip(skipNum).toArray(function(err, data) {
+              if (err) {
+                callback({code: -101, msg: '查询数据库失败'});
+              } else {
+                console.log('data'+data)
+                callback(null, data);
+              }
+            })
+          }
+        ], function(err, results) {
+          if (err) {
+            cb(err);
+          } else {
+            cb(null, {
+              totalPage: Math.ceil(results[0] / data.pageSize),
+              userList: results[1],
+              page: data.page,
+            })
+          }
+          // 关闭连接
+          client.close();
+        })
+
+      }
+    })
+  },
+  delete(data,cb){
+    MongoClient.connect(url, function(err,client) {
+      if (err) {
+        cb({code: -100,msg:'数据库连接失败'})
+      } else {
+        const db = client.db('yjk')
+        db.collection('users').deleteOne({
+          _id:data
+        })
+        client.close()
+      }
+    })
+  },
+  update(data,cb){
+    MongoClient.connect(url, function (err,client) {
+      if (err) {
+        cb({code:-100,msg:"数据库连接失败"})
+      } else {
+        const db = client.db('yjk')
+        db.collection('users').updateOne({_id:data.id},{$set: {
+          nickname:data.newNickName,
+          phone:data.newPhoneNumber
+        }})
+        client.close()
+      }
+    })
   }
 }
 

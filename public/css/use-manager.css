@@ -19,7 +19,7 @@
 }
 table {
     margin: auto;
-    margin-top: 50px;
+    margin-top: 20px;
     border: 1px solid #797979;
 }
 th {
@@ -49,12 +49,10 @@ td {
 
 .list-page {
     width: 300px;
-    position: absolute;
-    top: 400px;
-    left: 1000px;
+    margin-top: 20px;
+    margin-left: 900px;
     height: 27px;
     border-radius: 4px;
-    /* overflow: hidden; */
     border: none;
     /* overflow: hidden;
     text-overflow:ellipsis;

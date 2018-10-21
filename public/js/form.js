@@ -1,7 +1,7 @@
 $(function(){
     $("#inputUser").change(function(){
-       if(!/^\w{5,10}$/.test($(this).val())){
-           $("#nonooo").html('用户名长度5-10位！').addClass('canont').fadeIn('fast')
+       if(!/^\S{3,10}$/.test($(this).val())){
+           $("#nonooo").html('用户名长度3-10位！').addClass('canont').fadeIn('fast')
            $('#register').attr('disabled','disabled')
        } else {
             $("#nonooo").html('用户名可用').removeClass('canont').addClass('canuse').fadeIn('fast')
@@ -10,7 +10,7 @@ $(function(){
        }
     })
     $('#inputPassword3').change(function () {
-        if (!/^[a-z0-9_-]{6,18}$/.test($(this).val())){
+        if (!/^[a-zA-Z0-9_-]{6,18}$/.test($(this).val())){
             $("#nonooo1").html('请输入正确的密码格式6-18位').addClass('canont').fadeIn('fast')
             $('#reinputPassword4').attr('disabled','disabled')
             // $('#register').attr('disabled','disabled')
@@ -30,8 +30,8 @@ $(function(){
         }
     })
     $("#inputNickname").change(function(){
-        if(!/^\w{5,10}$/.test($(this).val())){
-            $("#nonooo3").html('请输入正确的昵称5-10位！').addClass('canont').fadeIn('fast')
+        if(!/^\S{2,10}$/.test($(this).val())){
+            $("#nonooo3").html('请输入正确的昵称2-10位！').addClass('canont').fadeIn('fast')
             $('#register').attr('disabled','disabled')
         } else {
             $("#nonooo3").html('昵称可用').removeClass('canont').addClass('canuse').fadeIn('fast')

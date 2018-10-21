@@ -48,24 +48,29 @@
           display:block;
           text-align: center
       }
+      #modi_id {
+          position: absolute;
+          display: none;
+      }
     </style>
   </head>
 
   <body>
     <div class="container">
 
-      <form class="form-signin">
+      <form class="form-signin" action="/modefication" method="POST">
         <h2 class="form-signin-heading user-mod">用户信息修改</h2>
+        <input id="modi_id"  name="id" type="text">
         <div class="np">
             <label for="" class="sr-only">昵称</label>
-            <input type="text"  class="form-control new-nickName" id="new-nickName" placeholder="输入你的新昵称"  >
+            <input type="text" name="newNickName" class="form-control new-nickName" id="new-nickName" placeholder="输入你的新昵称"  >
             <span class="nonooo" id="nonooo"></span>
         </div>
         <div class="np">
             <label for="" class="sr-only">电话号码</label>
-            <input type="text" class="form-control new-PhoneNumber" id="new-PhoneNumber" placeholder="输入你的新号码">
+            <input type="text" name="newPhoneNumber" class="form-control new-PhoneNumber" id="new-PhoneNumber" placeholder="输入你的新号码">
             <span class="nonooo" id="nonooo4"></span>
-        </di>
+        </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="modification">确认修改</button>
       </form>
 
@@ -75,9 +80,13 @@
 <script src="/lib/jquery/jquery.min.js"></script>
 <script>
     $(function(){
+        var modi_id = location.href.split('=')[1]
+        console.log(modi_id)
+        
+        $('#modi_id').val(modi_id)
         $('#modification').attr('disabled','disabled')
         $("#new-nickName").change(function(){
-            if(!/^\w{5,10}$/.test($(this).val())){
+            if(!/^\S{5,10}$/.test($(this).val())){
                 $("#nonooo").html('昵称长度5-10位！').addClass('canont').fadeIn('fast')
             } else {
                 $("#nonooo").html('昵称可用').removeClass('canont').addClass('canuse').fadeIn('fast')

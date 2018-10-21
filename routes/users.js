@@ -17,7 +17,7 @@ router.post('/register', function (req, res) {
   // console.log('获取传递过来的 post 请求的数据');
   // console.log(req.body);
   // 1. 用户名必须是 5 - 10为字符
-  if (!/^\w{5,10}$/.test(req.body.username)) {
+  if (!/^\S{3,10}$/.test(req.body.username)) {
     res.render('yjkerror', { code: -1, msg: '用户名必须是5-10位' });
     return;
   }
@@ -103,5 +103,4 @@ router.get('/logout', function(req, res) {
 
   // location.replace('/login.html');
 })
-
 module.exports = router;
