@@ -225,6 +225,21 @@
       $('.phonenumber').val($(this).parents('tr').children('.phonenumber1').text().trim())
       $('.manager').val($(this).parents('tr').children('.manager1').text().trim())
       $('.uid').val($(this).parents('tr').children('.uid1').text().trim())
+      $('.age').val($(this).parents('tr').children('.age1').text().trim())
+
+
+      var storeCookie = document.cookie
+      console.log(storeCookie)
+      var usen = storeCookie.split(';')[0].split('=')[1]
+      console.log(typeof usen)
+      console.log(typeof $('.username').val())
+      if (usen === $('.username').val()){
+        console.log(1)
+        $('#true').click(function(){
+          var newnick = encodeURI($('.nickname').val())
+          document.cookie=`nickname=${newnick}`
+        })
+      }
     })
     $('#false').click(function(){
       $('.col-md-12').fadeOut()
@@ -239,7 +254,5 @@
             // $('#register').removeAttr('disabled')
          }
      })
-
-
   })
 </script>
