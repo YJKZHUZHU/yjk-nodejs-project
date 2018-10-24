@@ -19,12 +19,24 @@
     .continue {
       text-decoration: none;
       color: #ffffff;
-     
-     
     }
     .on {
       background: red;
       color: aqua;
+    }
+    .nick-null {
+      width: 150px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 18px;
+      background: darkgoldenrod;
+      position: absolute;
+      color: #dddddd;
+      left: 711px;
+      top: 88px;
+      border-radius: 10px;
+      display: none;
     }
   </style>
 </head>
@@ -40,9 +52,15 @@
         <div class="search">
             <!-- <form action="/search" style="margin-left:78px" method="POST"> -->
               <input type="text" class="nickname-search" name="nickname" placeholder="输入用户昵称">
-              <button class="serchbtn"><a href="/search.html" id="search" class="continue">搜索</a></button>
+              <button class="serchbtn"><a id="search" class="continue">搜索</a></button>
             <!-- </form> -->
             <!-- <a href="/search.html">搜搜</a> -->
+
+
+            <!-- 提示 -->
+        <div class="nick-null">
+          <p>昵称不能为空</p>
+        </div>
         </div>
         <table border="1">
           <thead>
@@ -211,12 +229,36 @@
 
     //搜索
     
-    $('.nickname-search').change(function(){
-      var nickname = $(this).val()
+    // $('.nickname-search').change(function(){
+    //   var nickname = $(this).val()
+    //   if (nickname === '') {
+    //     $('.nick-null').fadeIn()
+    //      setTimeout(function(){
+    //       $('.nick-null').fadeOut()
+    //      },1000)
+    //   }else {
+    //     $('#search').click(function(){
+    //   $(this).attr("href",`/search.html?nickname=${nickname}&page=1`)
+    // })
+    //   }
+      
+    // })
+
+
       $('#search').click(function(){
-      $(this).attr("href",`/search.html?nickname=${nickname}&page=1`)
+      var nickname = $('.nickname-search').val()
+      if (nickname === '') {
+        $('.nick-null').fadeIn()
+         setTimeout(function(){
+          $('.nick-null').fadeOut()
+         },1000)
+      }else {
+        $(this).attr("href",`/search.html?nickname=${nickname}&page=1`)
+      }
+      
     })
-    })
+
+
     $('#rewrite').click(function(){
       $('.col-md-12').fadeIn()
       // $('#phonenickname1').val($(this).parents('tr').children('.phonenickname').text().trim())
@@ -254,5 +296,17 @@
             // $('#register').removeAttr('disabled')
          }
      })
+
+
+    //  $('.serchbtn').click(function(){
+    //    if ($('.nickname-search').val() === ''){
+    //      $('.nick-null').fadeIn()
+    //      setTimeout(function(){
+    //       $('.nick-null').fadeOut()
+    //      },1000)
+    //    }else {
+          
+    //    }
+    //  })
   })
 </script>

@@ -163,15 +163,19 @@ router.get('/search.html', function(req,res) {
       if (err) {
         res.render('yjkerror', err);
       } else {
-        res.render('search', {
-          username: req.cookies.username,
-          nickname: req.cookies.nickname,
-          isAdmin: parseInt(req.cookies.isAdmin) ? '(管理员)' : '',
-          userList: data.userList,
-          totalPage: data.totalPage,
-          page: data.page
-         
-        });
+        if(data.userList.length != 0) {
+          res.render('search', {
+            username: req.cookies.username,
+            nickname: req.cookies.nickname,
+            isAdmin: parseInt(req.cookies.isAdmin) ? '(管理员)' : '',
+            userList: data.userList,
+            totalPage: data.totalPage,
+            page: data.page                                            
+          });
+        }else {
+          res.render('yjkerror',{code:-103,msg:'昵称不存在'})
+        }
+        
       }
     });
 
