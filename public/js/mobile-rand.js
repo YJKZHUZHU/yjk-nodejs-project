@@ -15,10 +15,23 @@ $(function(){
             $('#phone-add').fadeOut()
         })
         $('.rewrite').click(function(){
+            $('#true-modifier').attr('disabled','disabled')
             $('#modifier').fadeIn()
             $('#phonenickname1').val($(this).parents('tr').children('.phonenickname').text().trim())
             $('#phonebrand1').val($(this).parents('tr').children('.phonebrand').text().trim())
             $('#phonenid1').val($(this).parents('tr').children('.tid').text().trim())
+
+            $('#usedprice1').blur(function(){
+                var ast =  parseInt($('#officialprice1').val())
+                console.log(typeof JSON.parse($(this).val()))
+                if (parseInt($(this).val()) > ast) {
+                    $('#remind1').fadeIn()
+                }else {
+                    $('#remind1').fadeOut()
+                    $('#true-modifier').removeAttr('disabled')
+                }
+            })
+
         })
         $('#false-modifier').click(function(){
             $('#modifier').fadeOut()
@@ -43,11 +56,21 @@ $(function(){
             }
             $(this).attr("href", `/mobile-manager.html?page=${page}`)
         })
+        
+
+
+
+
+
+        
+
+
 
         //二手回收价不得高于官方价格
         $('#usedprice').change(function(){
-            var ast =  $('#officialprice').val()
-            if ($(this).val() > ast) {
+            var ast =  parseInt($('#officialprice').val())
+            console.log(typeof JSON.parse($(this).val()))
+            if (parseInt($(this).val()) > ast) {
                 $('#remind').fadeIn()
                 $('#ture').click(function (event) {
                     event.preventDefault();
