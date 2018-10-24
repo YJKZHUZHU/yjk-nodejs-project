@@ -37,7 +37,10 @@ const usersModel = {
         password: data.password,
         nickname: data.nickname,
         phone: data.phone,
-        is_admin: data.isAdmin
+        is_admin: data.isAdmin,
+        age: data.age,
+        sex:data.sex
+
       };
 
       // ========= 使用 async 的 串行无关联来写 ======================
@@ -68,22 +71,12 @@ const usersModel = {
                 saveData._id = 1
               }else {
                 var num = results[0]._id
+                // var num = 2;
                 saveData._id = num +1
               }
               callback(null)
             }
           })
-
-
-
-          // db.collection('users').find().count(function(err, num) {
-          //   if (err) {
-          //     callback({ code: -101, msg: '查询表的所有记录条数失败'});
-          //   } else {
-          //     saveData._id = num + 1;
-          //     callback(null);
-          //   }
-          // })
         },
 
         function (callback) {
@@ -108,76 +101,6 @@ const usersModel = {
 
         client.close();
       });
-
-
-
-
-      // ============= 万能的分割线  以下是回调地狱的写法 =================
-      // console.log(saveData);
-
-      // // 查询 users表中是否存在 需要注册的用户
-      // db.collection('users').find({username: saveData.username}).count(function(err, num) {
-      //   // 如果 num 为 0 ，没有注册，否则已经注册了
-      //   if (err) {
-      //     cb({ code: -101, msg: '查询用户是否已注册失败'});
-      //     client.close();
-      //   } else if (num !== 0) {
-      //     console.log('用户已经注册过了');
-      //     cb({ code: -102, msg: '用户已经注册过了'});
-      //     client.close();
-      //   } else {
-      //     console.log('用户没有注册，可以进行注册操作');
-      //     // 自增 _id
-
-      //     db.collection('users').find().count(function(err, num) {
-      //       if (err) {
-      //         cb({ code: -101, msg: '查询用户记录条数失败'});
-      //         client.close();
-      //       } else {
-      //         // 自增操作
-      //         saveData._id = num + 1;
-
-      //         db.collection('users').insertOne(saveData, function(err) {
-      //           if (err) {
-      //             cb({code: -101, msg: '用户注册失败'});
-      //           } else {
-      //             console.log('用户注册成功');
-      //             cb(null);
-      //           }
-
-      //           // 不要忘了 结束数据库连接
-      //           client.close();
-      //         })
-      //       }
-      //     })
-      //   }
-
-
-
-
-
-
-      //   // if (num === 0) {
-      //   //   db.collection('users').find().count(function(err, num) {
-      //   //     if (err) throw err;
-      //   //     saveData._id = num + 1;
-
-      //   //     console.log(saveData);
-
-      //   //     db.collection('users').insertOne(saveData, function(err) {
-      //   //       if (err) throw err;
-      //   //       cb(null);
-
-      //   //       client.close();
-      //   //     })
-
-
-      //   //   });
-      //   // } else {
-      //   //   cb('已经注册过了');
-      //   //   client.close();
-      //   // }
-      // })
     })
   },
 
@@ -271,14 +194,6 @@ const usersModel = {
           // 关闭连接
           client.close();
         })
-
-        // db.collection('users').find().limit(data.pageSize).skip(skipNum).toArray(function(err, data) {
-        //   if (err) {
-        //     cb({code: -101, msg: '查询数据库失败'});
-        //   } else {
-        //     cb(null, {})
-        //   }
-        // })
       }
     })
   },
@@ -296,6 +211,8 @@ const usersModel = {
     })
   },
   update(data,cb){
+    console.log("hahha"+data)
+    console.log(data.phonenumber)
     MongoClient.connect(url, function (err,client) {
       if (err) {
         cb({code:-100,msg:"数据库连接失败"})
@@ -303,8 +220,16 @@ const usersModel = {
         const db = client.db('yjk')
         db.collection('users').updateOne({_id:data.id},{$set: {
           nickname:data.newNickName,
-          phone:data.newPhoneNumber
-        }})
+          phone:data.phonenumber,
+          sex:data.sex,
+          age:data.age
+        }},function(err,data){
+          if (err) {
+            cb({code: -100,msg:'数据库连接失败'})
+          } else {
+            cb(null,data)
+          }
+        })
         client.close()
       }
     })
@@ -372,16 +297,17 @@ const usersModel = {
       }
     })
   },
-  update(data,cb){
+  updatetwo(data,cb){
     MongoClient.connect(url, function (err,client) {
       if (err) {
         cb({code:-100,msg:"数据库连接失败"})
       } else {
         const db = client.db('yjk')
         db.collection('users').updateOne({_id:data.id},{$set: {
-          nickname:data.newNickName,
-          phone:data.newPhoneNumber
+          nickname:data.nickname,
+          phone:data.phonenumner
         }})
+        console.log('修改成功')
         client.close()
       }
     })

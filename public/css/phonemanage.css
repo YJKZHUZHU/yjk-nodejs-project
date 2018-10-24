@@ -1,0 +1,111 @@
+.new-add-phone {
+    background: #428BCA;
+    color: #ffffff;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+table {
+    border: 1px solid #dddddd;
+}
+.line {
+    border-bottom: 1px solid #dddddd;
+}
+.conmon {
+    font-weight: 800;
+    font-size: 24px;
+    display: inline-block;
+    width: 150px;
+    text-align: right
+}
+legend {
+    text-align: center;
+    font-weight: 800;
+    font-size: 30px
+}
+.phone-add {
+    width: 500px;
+    height: 450px;
+    padding-top: 20px; 
+    border: 1px solid #dddddd;
+    /* position: absolute;
+    top: 100px;
+    left: 600px; */
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: none;
+    z-index: 2;
+    background: white
+}
+.controls {
+   
+    margin-top: 20px 
+}
+input {
+    border: 1px solid #dddddd;
+    outline: #428BCA;
+    width: 210px;
+    height: 30px;
+    margin-left: 20px
+} 
+.input-xlarge {
+    border: 1px solid #dddddd;
+    outline: #428BCA;
+    width: 210px;
+    height: 30px;
+    margin-left: 20px
+}
+.input-file {
+    border: none
+}
+.buttons {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px
+}
+.true {
+    width: 120px;
+    height: 40px;
+    border: 1px solid #dddddd;
+    background: #428BCA;
+    color: #ffffff;
+    border-radius: 6px;
+    line-height: 40px;
+    text-align: center
+}
+.false {
+    width: 120px;
+    height: 40px;
+    display: inline-block;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+#modifier {
+    width: 500px;
+    height: 450px;
+    padding-top: 20px;
+    border: 1px solid #dddddd;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: none;
+    z-index: 2;
+    background: white;
+}

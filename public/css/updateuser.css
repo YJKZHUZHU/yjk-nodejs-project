@@ -1,0 +1,99 @@
+
+.col-md-12 {
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    border: 1px solid #dddddd;
+    background: white;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: 100px auto;
+    display: none;
+}
+.all {
+    text-align: center
+}
+.userAll {
+    margin: 20px 0;
+    font-size: 20px
+}
+input {
+   border: 1PX solid #dddddd;
+   /* margin-left: 20px */
+}
+.form-group {
+    margin: 20px 0;
+}
+.form-control {
+    outline: none;
+    height: 30px
+}
+.col-sm-2 {
+    width: 100px;
+    display: inline-block;
+    text-align: right
+}
+.diff {
+    margin-right: 159px
+}
+.radidiff {
+    display: inline-block;
+    position: relative;
+    left: -115px;
+    top: 0
+}
+select {
+    border: 1px solid #dddddd;
+    outline: none;
+    height: 30px
+}
+option {
+    border: 1px solid #dddddd;
+    outline: none
+}
+.form-control {
+    margin-left: 50px
+}
+.buttons {
+    text-align: center;
+    margin-top: 40px;
+}
+.true {
+    width: 120px;
+    height: 40px;
+    border: 1px solid #dddddd;
+    background: #428BCA;
+    color: #ffffff;
+    border-radius: 6px;
+    line-height: 40px;
+    text-align: center;
+    margin-right: 20px
+}
+.false {
+    width: 120px;
+    height: 40px;
+    display: inline-block;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 20px
+}
+.canuse {
+    color: greenyellow
+  }
+  .canont {
+    color: darkviolet
+  }
+  .nonooo {
+    position: absolute;
+    right: -76px;
+    top:175px;
+    display: none;
+    display: inline-block;
+    width: 200px;
+    text-align: left
+  }

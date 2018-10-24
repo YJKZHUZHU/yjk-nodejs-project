@@ -58,7 +58,7 @@
   <body>
     <div class="container">
 
-      <form class="form-signin" action="/modefication" method="POST">
+      <form class="form-signin" action="/users/modefication" method="POST">
         <h2 class="form-signin-heading user-mod">用户信息修改</h2>
         <input id="modi_id"  name="id" type="text">
         <div class="np">
@@ -86,8 +86,8 @@
         $('#modi_id').val(modi_id)
         $('#modification').attr('disabled','disabled')
         $("#new-nickName").change(function(){
-            if(!/^\S{5,10}$/.test($(this).val())){
-                $("#nonooo").html('昵称长度5-10位！').addClass('canont').fadeIn('fast')
+            if(!/^\S{3,10}$/.test($(this).val())){
+                $("#nonooo").html('昵称长度3-10位！').addClass('canont').fadeIn('fast')
             } else {
                 $("#nonooo").html('昵称可用').removeClass('canont').addClass('canuse').fadeIn('fast')
                 if($('#new-PhoneNumber').val() === ''){

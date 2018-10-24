@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const usersModel = require('../model/usersModels');
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
@@ -14,41 +13,15 @@ router.get('/', function(req, res, next) {
 
 // 注册处理
 router.post('/register', function (req, res) {
-  // console.log('获取传递过来的 post 请求的数据');
-  // console.log(req.body);
-  // 1. 用户名必须是 5 - 10为字符
   if (!/^\S{3,10}$/.test(req.body.username)) {
     res.render('yjkerror', { code: -1, msg: '用户名必须是5-10位' });
     return;
   }
-
-  // 其余的...
-
-  // 操作数据库写入信息
-
-  // 这里的捕获捕获不到， try catch 只能捕获同步的代码
-  // try {
-  //   usersModel.add(req.body, function(err) {
-  //     if (err) throw err;
-  //     // 注册成功，跳到登录页面。
-  //     res.render('login');
-  //   });
-  // } catch (error) {
-  //   console.log('===================');
-  //   console.log(error);
-  //   res.render('werror', { code: -2, msg: error });
-  // }
-
-  // err 需要是一个 对象 的格式 { code: 0, msg: 'xxx'}
   usersModel.add(req.body, function(err) {
     if (err) {
       // 如果有错误，直接将错误信息渲染到页面
       res.render('yjkerror', err);
     } else {
-      // 注册成功
-      // 不应该渲染，而应该跳转
-      // res.render('login');
-
       res.redirect('/login.html');
     }
   })
@@ -93,14 +66,48 @@ router.get('/logout', function(req, res) {
   res.clearCookie('username');
   res.clearCookie('nickname');
   res.clearCookie('isAdmin');
-
-  // res.redirect(200, '/login.html');
-
   res.send('<script>location.replace("/")</script>')
+})
 
-  // res.location('back');
-  // res.end();
 
-  // location.replace('/login.html');
+//修改用户
+router.post('/updateuser', function(req, res) {
+  var id = JSON.parse(req.body.uid)//转成numberleix
+  req.body.uid = id
+  console.log(req.body)
+  usersModel.update({
+    id:req.body.uid,
+    newNickName: req.body.nickname,
+    phonenumber:req.body.phonenumber,
+    sex: req.body.sex,
+    age:req.body.age
+},function(err){
+  if (err) {
+    res.send('yjkerror',err)
+  }else {
+    res.redirect('/user-manager.html')
+  }
+})
+})
+//跳页面更新
+router.post('/modefication', function(req, res) {
+  console.log(req.body)
+  var id = JSON.parse(req.body.id)//转成numberleix
+  req.body.id = id
+  usersModel.updatetwo({
+    id:req.body.id,
+    nickname:req.body.newNickName,
+    phonenumner:req.body.newPhoneNumber
+  },function(err) {
+    if (err) {
+      res.redirect('yjkerror',err)
+    }else {
+      res.redirect('/user-manager.html')
+    }
+    res.redirect('/user-manager.html')
+
+  })
+  
+
 })
 module.exports = router;

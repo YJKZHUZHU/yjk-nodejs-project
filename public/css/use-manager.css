@@ -35,6 +35,7 @@ td {
     color: #169BD5;
     text-decoration: none;
     margin-left: 40px;
+    cursor: pointer;
 }
 .delete {
     display: inline-block;
