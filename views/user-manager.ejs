@@ -1,312 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/index.css">
-  <link rel="stylesheet" href="/css/use-manager.css">
-  <link rel="stylesheet" href="/css/updateuser.css">
-  <!-- <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"> -->
-  <!-- <link rel="icon" href="../../favicon.ico"> -->
-  <!-- <link href="/css/signin.css" rel="stylesheet"> -->
-  <!-- <link rel="stylesheet" href="/css/phonemanage.css"> -->
-  <script src="/lib/jquery/jquery.min.js"></script>
-  <script src="/js/highlight.js"></script>
-  <style>
-    .continue {
-      text-decoration: none;
-      color: #ffffff;
-    }
-    .on {
-      background: red;
-      color: aqua;
-    }
-    .nick-null {
-      width: 150px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      font-size: 18px;
-      background: darkgoldenrod;
-      position: absolute;
-      color: #dddddd;
-      left: 711px;
-      top: 88px;
-      border-radius: 10px;
-      display: none;
-    }
-  </style>
-</head>
-<body>
 
-  <div class="index">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<link rel="stylesheet" href="/css/use-manager.css">
+		<link rel="stylesheet" href="/css/updateuser.css">
+		<!-- <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"> -->
+		<!-- <link rel="icon" href="../../favicon.ico"> -->
+		<!-- <link href="/css/signin.css" rel="stylesheet"> -->
+		<!-- <link rel="stylesheet" href="/css/phonemanage.css"> -->
+		<script src="/lib/jquery/jquery.min.js"></script>
+		<script src="/js/highlight.js"></script>
+		<style>
+			.continue {
+				text-decoration: none;
+				color: #ffffff;
+			}
+			
+			.on {
+				background: red;
+				color: aqua;
+			}
+			
+			.nick-null {
+				width: 150px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				font-size: 18px;
+				background: darkgoldenrod;
+				position: absolute;
+				color: #dddddd;
+				left: 711px;
+				top: 88px;
+				border-radius: 10px;
+				display: none;
+			}
+		</style>
+	</head>
 
-    <%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
+	<body>
 
-    <div class="container">
-        <%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
-      <div class="main">
-        <div class="search">
-            <!-- <form action="/search" style="margin-left:78px" method="POST"> -->
-              <input type="text" class="nickname-search" name="nickname" placeholder="输入用户昵称">
-              <button class="serchbtn"><a id="search" class="continue">搜索</a></button>
-            <!-- </form> -->
-            <!-- <a href="/search.html">搜搜</a> -->
+		<div class="index">
 
+			<%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
 
-            <!-- 提示 -->
-        <div class="nick-null">
-          <p>昵称不能为空</p>
-        </div>
-        </div>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>序号</th>
-              <th>用户名</th>
-              <th>用户昵称</th>
-              <th>手机号码</th>
-              <th>性别</th>
-              <th>年龄</th>
-              <th>是否管理员</th>
-              <th>操作</th>
-            </tr>
-          </thead>
+			<div class="container">
+				<%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
+				<div class="main">
+					<div class="search">
+						<!-- <form action="/search" style="margin-left:78px" method="POST"> -->
+						<input type="text" class="nickname-search" name="nickname" placeholder="输入用户昵称">
+						<button class="serchbtn"><a id="search" class="continue">搜索</a></button>
+						<!-- </form> -->
+						<!-- <a href="/search.html">搜搜</a> -->
 
-          <tbody>
-            <!-- 循环 userList 显示用户数据 -->
-            <% for (var i = 0; i < userList.length; i++) { %>
-              <tr>
-                <td class="uid1"><%= userList[i]._id %></td>
-                <td class="username1"><%= userList[i].username %></td>
-                <td class="nickname1"><%= userList[i].nickname %></td>
-                <td class="phonenumber1"><%= userList[i].phone %></td>
-                <td class="sex1"><%= userList[i].sex || '-' %></td>
-                <td class="age1"><%= userList[i].age || '-' %></td>
-                <td class="manager1"><%= parseInt(userList[i].is_admin) ? '是' : '否' %></td>
-                <td class="lasttd">
-                  <!--
+						<!-- 提示 -->
+						<div class="nick-null">
+							<p>昵称不能为空</p>
+						</div>
+					</div>
+					<table border="1">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>用户名</th>
+								<th>用户昵称</th>
+								<th>手机号码</th>
+								<th>性别</th>
+								<th>年龄</th>
+								<th>是否管理员</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<!-- 循环 userList 显示用户数据 -->
+							<% for (var i = 0; i < userList.length; i++) { %>
+							<tr>
+								<td class="uid1">
+									<%= userList[i]._id %>
+								</td>
+								<td class="username1">
+									<%= userList[i].username %>
+								</td>
+								<td class="nickname1">
+									<%= userList[i].nickname %>
+								</td>
+								<td class="phonenumber1">
+									<%= userList[i].phone %>
+								</td>
+								<td class="sex1">
+									<%= userList[i].sex || '-' %>
+								</td>
+								<td class="age1">
+									<%= userList[i].age || '-' %>
+								</td>
+								<td class="manager1">
+									<%= parseInt(userList[i].is_admin) ? '是' : '否' %>
+								</td>
+								<td class="lasttd">
+									<!--
                     1. 如果当前登录的管理员跟这条记录匹配。那么可以修改，
                     2. 如果这条记录是管理员记录的话，那么不可以删除
                    -->
 
-                  <% if (userList[i].username === username) { %>
-                    <!-- <a href="/modification.html?id=<%= userList[i]._id %>" class="rewrite">修改</a> -->
-                    <span class="rewrite" id="rewrite">修改</span>
-                  <% } else if (parseInt(userList[i].is_admin)) { %>
+									<% if (userList[i].username === username) { %>
+									<!-- <a href="/modification.html?id=<%= userList[i]._id %>" class="rewrite">修改</a> -->
+									<span class="rewrite" id="rewrite">修改</span>
+									<% } else if (parseInt(userList[i].is_admin)) { %>
 
-                  <% } else { %>
-                    <!-- <a href="/modification.html?id=<%= userList[i]._id %>" class="rewrite">修改</a> -->
-                    <span class="rewrite" id="rewrite">修改</span>
-                    <a href="/delete?id=<%= userList[i]._id %>" class="delete">删除</a>
-                  <% } %>
+									<% } else { %>
+									<!-- <a href="/modification.html?id=<%= userList[i]._id %>" class="rewrite">修改</a> -->
+									<span class="rewrite" id="rewrite">修改</span>
+									<a href="/delete?id=<%= userList[i]._id %>" class="delete">删除</a>
+									<% } %>
 
-                </td>
-              </tr>
-            <% } %>
+								</td>
+							</tr>
+							<% } %>
 
-          </tbody>
-        </table>
+						</tbody>
+					</table>
 
-        <!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
+					<!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
 
-        <ul class="list-page">
-            <li class="left list-p">
-                <a href="/user-manager.html" id="left"><<</a>
-            </li>
-          <% for (var i = 0; i < totalPage; i++) { %>
-            <li class="list-p" id="paging">
-              <a href="/user-manager.html?page=<%= i+1 %>" ><%= i+1 %></a>
-            </li>
-          <% } %>
-          <li class="right list-p">
-              <a href="/user-manager.html" id="rigth">>></a>
-          </li>
-        </ul>
+					<ul class="list-page">
+						<li class="left list-p">
+							<a href="/user-manager.html" id="left">
+								<<</a>
+						</li>
+						<% for (var i = 0; i < totalPage; i++) { %>
+						<li class="list-p" id="paging">
+							<a href="/user-manager.html?page=<%= i+1 %>">
+								<%= i+1 %>
+							</a>
+						</li>
+						<% } %>
+						<li class="right list-p">
+							<a href="/user-manager.html" id="rigth">>></a>
+						</li>
+					</ul>
 
-      </div>
-    </div>
-  </div>
+				</div>
+			</div>
+		</div>
 
-  <div class="col-md-12">
-    <form action="/users/updateuser" method="POST">
-        <div class="all">
-            <h2 class="userAll">用户信息修改</h2>
-            <input type="text" name="uid" style="display:none" class="uid">
-            <div class="form-group">
-                
-                <div class="col-sm-7">
-                    <span class="col-sm-2 control-label ">用户名:</span>
-                    <input name="username" class="form-control username" type="text" placeholder="用户名" readonly>
-                </div>
-            </div>
-            <div class="form-group">
-                
-                <div class="col-sm-7">
-                    <span class="col-sm-2 control-label ">昵称:</span>
-                    <input name="nickname" class="form-control nickname" type="text" placeholder="用户昵称">
-                </div>
-            </div>
-            <div class="form-group">
-                
-                <div class="col-sm-7">
-                    <span class="col-sm-2 control-label ">手机号码:</span>
-                    <input name="phonenumber" class="form-control phonenumber" type="text" placeholder="手机号码">
-                    <span id="nonooo4" class="nonooo"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                
-                <div class="col-sm-7">
-                    <span class="col-sm-2 control-label diff">性别：</span>
-                      <div class="radidiff">
-                        <select name="sex" id="">
-                          <option value="男">男</option>
-                          <option value="女">女</option>
-                        </select>
-                      </div>
-                        
-                </div>
-            </div>
-            <div class="form-group">
-                
-                <div class="col-sm-7">
-                    <span class="col-sm-2 control-label">年龄:</span>
-                    <input name="age" class="form-control age" type="number" placeholder="年龄">
-                </div>
-            </div>
-            <div class="form-group">
-                
-                <div class="col-sm-7">
-                    <span class="col-sm-2 control-label ">管理员:</span>
-                    <input  class="form-control manager" type="text" placeholder="是否是管理员" readonly>
-                </div>
-            </div>
-          </div>
-          <div class="buttons">
-              <button class="true" id="true" type="submit">确认</button>
-              <span class="false" id="false">取消</span>
-          </div>
-    </form>
-    
-</div>
+		<div class="col-md-12">
+			<form action="/users/updateuser" method="POST">
+				<div class="all">
+					<h2 class="userAll">用户信息修改</h2>
+					<input type="text" name="uid" style="display:none" class="uid">
+					<div class="form-group">
 
+						<div class="col-sm-7">
+							<span class="col-sm-2 control-label ">用户名:</span>
+							<input name="username" class="form-control username" type="text" placeholder="用户名" readonly>
+						</div>
+					</div>
+					<div class="form-group">
 
-</body>
+						<div class="col-sm-7">
+							<span class="col-sm-2 control-label ">昵称:</span>
+							<input name="nickname" class="form-control nickname" type="text" placeholder="用户昵称">
+						</div>
+					</div>
+					<div class="form-group">
+
+						<div class="col-sm-7">
+							<span class="col-sm-2 control-label ">手机号码:</span>
+							<input name="phonenumber" class="form-control phonenumber" type="text" placeholder="手机号码">
+							<span id="nonooo4" class="nonooo"></span>
+						</div>
+					</div>
+					<div class="form-group">
+
+						<div class="col-sm-7">
+							<span class="col-sm-2 control-label diff">性别：</span>
+							<div class="radidiff">
+								<select name="sex" id="">
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
+							</div>
+
+						</div>
+					</div>
+					<div class="form-group">
+
+						<div class="col-sm-7">
+							<span class="col-sm-2 control-label">年龄:</span>
+							<input name="age" class="form-control age" type="number" placeholder="年龄">
+						</div>
+					</div>
+					<div class="form-group">
+
+						<div class="col-sm-7">
+							<span class="col-sm-2 control-label ">管理员:</span>
+							<input class="form-control manager" type="text" placeholder="是否是管理员" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="buttons">
+					<button class="true" id="true" type="submit">确认</button>
+					<span class="false" id="false">取消</span>
+				</div>
+			</form>
+
+		</div>
+
+	</body>
+
 </html>
 <script>
-  $(function(){
-    var str = location.href;
-    var page = str.split("=")[1] 
-    var tol = $('.list-p').length -2;
-    console.log(tol)
-    // console.log(p)
-    $("#left").click(function(){
-      if(!page) {
-        page = 1
-      }
-      page--
-      if(page === 0){
-        page =1
-      }
-      $(this).attr("href",`/user-manager.html?page=${page}`)
-    })
-    $('#rigth').click(function() {
-      if (!page){
-        page = 1
-      }
-        page ++;
-        if (page > tol){
-          page = tol
-        }
-      $(this).attr("href",`/user-manager.html?page=${page}`)
-    })
+	$(function() {
+		var str = location.href;
+		var page = str.split("=")[1]
+		var tol = $('.list-p').length - 2;
+		console.log(tol)
+		// console.log(p)
+		$("#left").click(function() {
+			if(!page) {
+				page = 1
+			}
+			page--
+			if(page === 0) {
+				page = 1
+			}
+			$(this).attr("href", `/user-manager.html?page=${page}`)
+		})
+		$('#rigth').click(function() {
+			if(!page) {
+				page = 1
+			}
+			page++;
+			if(page > tol) {
+				page = tol
+			}
+			$(this).attr("href", `/user-manager.html?page=${page}`)
+		})
 
+		//搜索
 
+		// $('.nickname-search').change(function(){
+		//   var nickname = $(this).val()
+		//   if (nickname === '') {
+		//     $('.nick-null').fadeIn()
+		//      setTimeout(function(){
+		//       $('.nick-null').fadeOut()
+		//      },1000)
+		//   }else {
+		//     $('#search').click(function(){
+		//   $(this).attr("href",`/search.html?nickname=${nickname}&page=1`)
+		// })
+		//   }
 
-    //搜索
-    
-    // $('.nickname-search').change(function(){
-    //   var nickname = $(this).val()
-    //   if (nickname === '') {
-    //     $('.nick-null').fadeIn()
-    //      setTimeout(function(){
-    //       $('.nick-null').fadeOut()
-    //      },1000)
-    //   }else {
-    //     $('#search').click(function(){
-    //   $(this).attr("href",`/search.html?nickname=${nickname}&page=1`)
-    // })
-    //   }
-      
-    // })
+		// })
 
+		$('#search').click(function() {
+			var nickname = $('.nickname-search').val()
+			if(nickname === '') {
+				$('.nick-null').fadeIn()
+				setTimeout(function() {
+					$('.nick-null').fadeOut()
+				}, 1000)
+			} else {
+				$(this).attr("href", `/search.html?nickname=${nickname}&page=1`)
+			}
 
-      $('#search').click(function(){
-      var nickname = $('.nickname-search').val()
-      if (nickname === '') {
-        $('.nick-null').fadeIn()
-         setTimeout(function(){
-          $('.nick-null').fadeOut()
-         },1000)
-      }else {
-        $(this).attr("href",`/search.html?nickname=${nickname}&page=1`)
-      }
-      
-    })
+		})
 
+		$('.rewrite').click(function() {
+			// alert(1)
+			$('.col-md-12').fadeIn()
+			// $('#phonenickname1').val($(this).parents('tr').children('.phonenickname').text().trim())
+			$('.username').val($(this).parents('tr').children('.username1').text().trim())
+			$('.nickname').val($(this).parents('tr').children('.nickname1').text().trim())
+			$('.phonenumber').val($(this).parents('tr').children('.phonenumber1').text().trim())
+			$('.manager').val($(this).parents('tr').children('.manager1').text().trim())
+			$('.uid').val($(this).parents('tr').children('.uid1').text().trim())
+			$('.age').val($(this).parents('tr').children('.age1').text().trim())
 
-    $('#rewrite').click(function(){
-      $('.col-md-12').fadeIn()
-      // $('#phonenickname1').val($(this).parents('tr').children('.phonenickname').text().trim())
-      $('.username').val($(this).parents('tr').children('.username1').text().trim())
-      $('.nickname').val($(this).parents('tr').children('.nickname1').text().trim())
-      $('.phonenumber').val($(this).parents('tr').children('.phonenumber1').text().trim())
-      $('.manager').val($(this).parents('tr').children('.manager1').text().trim())
-      $('.uid').val($(this).parents('tr').children('.uid1').text().trim())
-      $('.age').val($(this).parents('tr').children('.age1').text().trim())
+			var storeCookie = document.cookie
+			console.log(storeCookie)
+			var usen = storeCookie.split(';')[0].split('=')[1]
+			console.log(typeof usen)
+			console.log(typeof $('.username').val())
+			if(usen === $('.username').val()) {
+				console.log(1)
+				$('#true').click(function() {
+					var newnick = encodeURI($('.nickname').val())
+					document.cookie = `nickname=${newnick}`
+				})
+			}
+		})
+		$('#false').click(function() {
+			$('.col-md-12').fadeOut()
+		})
 
+		$('.phonenumber').change(function() {
+			if(!(/^1[34578]\d{9}$/).test($(this).val())) {
+				$("#nonooo4").html('手机号格式不正确').addClass('canont').fadeIn('fast')
+				// $('#register').attr('disabled','disabled')
+			} else {
+				$("#nonooo4").html('手机号正确').removeClass('canont').addClass('canuse').fadeIn('fast')
+				// $('#register').removeAttr('disabled')
+			}
+		})
 
-      var storeCookie = document.cookie
-      console.log(storeCookie)
-      var usen = storeCookie.split(';')[0].split('=')[1]
-      console.log(typeof usen)
-      console.log(typeof $('.username').val())
-      if (usen === $('.username').val()){
-        console.log(1)
-        $('#true').click(function(){
-          var newnick = encodeURI($('.nickname').val())
-          document.cookie=`nickname=${newnick}`
-        })
-      }
-    })
-    $('#false').click(function(){
-      $('.col-md-12').fadeOut()
-    })
+		//  $('.serchbtn').click(function(){
+		//    if ($('.nickname-search').val() === ''){
+		//      $('.nick-null').fadeIn()
+		//      setTimeout(function(){
+		//       $('.nick-null').fadeOut()
+		//      },1000)
+		//    }else {
 
-     $('.phonenumber').change(function(){
-         if (!(/^1[34578]\d{9}$/).test($(this).val())) {
-            $("#nonooo4").html('手机号格式不正确').addClass('canont').fadeIn('fast')
-            // $('#register').attr('disabled','disabled')
-         } else {
-            $("#nonooo4").html('手机号正确').removeClass('canont').addClass('canuse').fadeIn('fast')
-            // $('#register').removeAttr('disabled')
-         }
-     })
-
-
-    //  $('.serchbtn').click(function(){
-    //    if ($('.nickname-search').val() === ''){
-    //      $('.nick-null').fadeIn()
-    //      setTimeout(function(){
-    //       $('.nick-null').fadeOut()
-    //      },1000)
-    //    }else {
-          
-    //    }
-    //  })
-  })
+		//    }
+		//  })
+	})
 </script>

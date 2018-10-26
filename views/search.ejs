@@ -1,219 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/index.css">
-  <link rel="stylesheet" href="/css/use-manager.css">
-  <script src="/lib/jquery/jquery.min.js"></script>
-  <script src="/js/highlight.js"></script>
-  <style>
-    .search-result {
-      text-align: center;
-      font-size: 24px;
-      color: #DDDDDD;
-    }
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<link rel="stylesheet" href="/css/use-manager.css">
+		<script src="/lib/jquery/jquery.min.js"></script>
+		<script src="/js/highlight.js"></script>
+		<style>
+			.search-result {
+				text-align: center;
+				font-size: 24px;
+				color: #DDDDDD;
+			}
+			
+			.continue {
+				text-decoration: none;
+				color: #ffffff;
+				display: inline-block;
+				background: #428BCA;
+				width: 80px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				border-radius: 10px;
+				margin-left: 1035px;
+			}
+			
+			.compunction {
+				color: #018DD6;
+				font-size: 40px;
+				text-align: center;
+				font-style: italic
+			}
+			
+			#yincang {
+				display: none;
+				position: absolute;
+			}
+		</style>
+	</head>
 
-    .continue {
-      text-decoration: none;
-      color: #ffffff;
-      display: inline-block;
-      background: #428BCA;
-      width: 80px;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
-      border-radius: 10px;
-      margin-left: 1035px;
-    }
+	<body>
 
-    .compunction {
-      color: #018DD6;
-      font-size: 40px;
-      text-align: center;
-      font-style: italic
-    }
+		<div class="index">
 
-    #yincang {
-      display: none;
-      position: absolute;
-    }
-  </style>
-</head>
+			<%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
 
-<body>
+			<div class="container">
 
-  <div class="index">
+				<%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
 
-    <%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
+				<div class="main">
+					<div class="search" style="padding: 10px">
+						<h1 class="compunction">用良心做教育</h1>
+						<a href="/user-manager.html" class="continue">继续搜索</a>
+					</div>
+					<table border="1">
+						<caption class="search-result">下面是小V同学检索到的结果</caption>
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>用户名</th>
+								<th>用户昵称</th>
+								<th>手机号码</th>
+								<th>性别</th>
+								<th>年龄</th>
+								<th>是否管理员</th>
+								<th>操作</th>
+							</tr>
+						</thead>
 
-    <div class="container">
-
-      <%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
-
-      <div class="main">
-        <div class="search" style="padding: 10px">
-          <h1 class="compunction">用良心做教育</h1>
-          <a href="/user-manager.html" class="continue">继续搜索</a>
-        </div>
-        <table border="1">
-          <caption class="search-result">下面是小V同学检索到的结果</caption>
-          <thead>
-            <tr>
-              <th>序号</th>
-              <th>用户名</th>
-              <th>用户昵称</th>
-              <th>手机号码</th>
-              <th>性别</th>
-              <th>年龄</th>
-              <th>是否管理员</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <!-- 循环 userList 显示用户数据 -->
-            <% for (var i = 0; i < userList.length; i++) { %>
-            <tr>
-              <td>
-                <%= userList[i]._id %>
-              </td>
-              <td>
-                <%= userList[i].username %>
-              </td>
-              <td>
-                <%= userList[i].nickname %>
-              </td>
-              <td>
-                <%= userList[i].phone %>
-              </td>
-              <td>
-                <%= userList[i].sex || '-' %>
-              </td>
-              <td>
-                <%= userList[i].age || '-' %>
-              </td>
-              <td>
-                <%= parseInt(userList[i].is_admin) ? '是' : '否' %>
-              </td>
-              <td class="lasttd">
-                <!--
+						<tbody>
+							<!-- 循环 userList 显示用户数据 -->
+							<% for (var i = 0; i < userList.length; i++) { %>
+							<tr>
+								<td>
+									<%= userList[i]._id %>
+								</td>
+								<td>
+									<%= userList[i].username %>
+								</td>
+								<td>
+									<%= userList[i].nickname %>
+								</td>
+								<td>
+									<%= userList[i].phone %>
+								</td>
+								<td>
+									<%= userList[i].sex || '-' %>
+								</td>
+								<td>
+									<%= userList[i].age || '-' %>
+								</td>
+								<td>
+									<%= parseInt(userList[i].is_admin) ? '是' : '否' %>
+								</td>
+								<td class="lasttd">
+									<!--
                     1. 如果当前登录的管理员跟这条记录匹配。那么可以修改，
                     2. 如果这条记录是管理员记录的话，那么不可以删除
                    -->
 
-                <% if (userList[i].username === username) { %>
-                <a href="/modification.html?id=<%= userList[i]._id %>" class="rewrite">修改</a>
-                <% } else if (parseInt(userList[i].is_admin)) { %>
+									<% if (userList[i].username === username) { %>
+									<a href="/modification.html?id=<%= userList[i]._id %>" class="rewrite">修改</a>
+									<% } else if (parseInt(userList[i].is_admin)) { %>
 
-                <% } else { %>
-                <a href="/modification.html?id=<%= userList[i]._id %>" class="rewrite">修改</a>
-                <a href="/delete?id=<%= userList[i]._id %>" class="delete">删除</a>
-                <% } %>
+									<% } else { %>
+									<a href="/modification.html?id=<%= userList[i]._id %>" class="rewrite">修改</a>
+									<a href="/delete?id=<%= userList[i]._id %>" class="delete">删除</a>
+									<% } %>
 
-              </td>
-            </tr>
-            <% } %>
+								</td>
+							</tr>
+							<% } %>
 
-          </tbody>
-        </table>
+						</tbody>
+					</table>
 
-        <!-- 隐藏 -->
-        <ul class="" id="yincang">
-          <li class="left list-p1" id="addhahah">
-            <a href="#" id="">
-              <<</a> </li> <% for (var i=0; i < totalPage; i++) { %> -->
-          <li class="list-p1">
-            <a href="/search.html?nickname=<%= nickname %>&page=<%= i+1 %>">
-              <%= i+1 %></a>
-          </li>
+					<!-- 隐藏 -->
+					<ul class="" id="yincang">
+						<li class="left list-p1" id="addhahah">
+							<a href="#" id="">
+								<<</a>
+						</li>
+						<% for (var i=0; i < totalPage; i++) { %> -->
+						<li class="list-p1">
+							<a href="/search.html?nickname=<%= nickname %>&page=<%= i+1 %>">
+								<%= i+1 %>
+							</a>
+						</li>
 
+						<% } %>
+						<li class="list-p1">
+							<a href="/search.html?nickname=<%= nickname %>&page=<%= i+1 %>">
+								<%= i+1 %>
+							</a>
+						</li>
+						<li class="right list-p1">
+							<a href="#" id="">>></a>
+						</li>
+					</ul>
 
+					<!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
 
-          <% } %>
-          <li class="list-p1">
-            <a href="/search.html?nickname=<%= nickname %>&page=<%= i+1 %>">
-              <%= i+1 %></a>
-          </li>
-          <li class="right list-p1">
-            <a href="#" id="">>></a>
-          </li>
-        </ul>
-
-        <!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
-
-        <ul class="list-page">
-          <li class="left list-p" id="addhahah">
-            <a href="/search.html" id="left">
-              <<</a> </li> <!-- <% for (var i=0; i < totalPage; i++) { %> -->
-                <!-- <li class="list-p">
+					<ul class="list-page">
+						<li class="left list-p" id="addhahah">
+							<a href="/search.html" id="left">
+								<<</a>
+						</li>
+						<!-- <% for (var i=0; i < totalPage; i++) { %> -->
+						<!-- <li class="list-p">
               <a href="/search.html?nickname=<%= nickname %>&page=<%= i+1 %>" ><%= i+1 %></a>
             </li> -->
 
-
-
-                <!-- <% } %> -->
-                <!-- <li class="list-p">
+						<!-- <% } %> -->
+						<!-- <li class="list-p">
               <a href="/search.html?nickname=<%= nickname %>&page=<%= i+1 %>" ><%= i+1 %></a>
           </li> -->
-          <li class="right list-p">
-            <a href="/search.html" id="rigth">>></a>
-          </li>
-        </ul>
+						<li class="right list-p">
+							<a href="/search.html" id="rigth">>></a>
+						</li>
+					</ul>
 
-      </div>
-    </div>
-  </div>
+				</div>
+			</div>
+		</div>
 
-</body>
+	</body>
 
 </html>
 <script>
-  $(function () {
-    var str = decodeURI(location.href.split('?')[1].split('&'));
-    console.log(str)
-    var sst = str.split(',')
-    console.log(sst)
-    // var page = str.split("=")[1]
-    var nick = sst[0].split('=')[1]
-    var page = sst[1].split('=')[1]
-    console.log(nick)
-    console.log(page)
-    var tol = $('.list-p1').length - 3;
-    console.log(tol)
-    for (var i = tol; i > 0; i--) {
-      // alert(1)
-      $('.list-page').find('li').eq(1).before(
-        `<li class="list-p">
+	$(function() {
+		var str = decodeURI(location.href.split('?')[1].split('&'));
+		console.log(str)
+		var sst = str.split(',')
+		console.log(sst)
+		// var page = str.split("=")[1]
+		var nick = sst[0].split('=')[1]
+		var page = sst[1].split('=')[1]
+		console.log(nick)
+		console.log(page)
+		var tol = $('.list-p1').length - 3;
+		console.log(tol)
+		for(var i = tol; i > 0; i--) {
+			// alert(1)
+			$('.list-page').find('li').eq(1).before(
+				`<li class="list-p">
               <a href="/search.html?nickname=${nick}&page=${i}">${i}</a>
             </li>`
-      )
-    }
-    $("#left").click(function () {
-      if (!page) {
-        page = 1
-      }
-      page--
-      if (page === 0) {
-        page = 1
-      }
-      $(this).attr("href", `/search.html?nickname=${nick}&page=${page}`)
-    })
-    $('#rigth').click(function () {
-      if (!page) {
-        page = 1
-      }
-      page++;
-      if (page > tol) {
-        page = tol
-      }
-      $(this).attr("href", `/search.html?nickname=${nick}&page=${page}`)
-    })
+			)
+		}
+		$("#left").click(function() {
+			if(!page) {
+				page = 1
+			}
+			page--
+			if(page === 0) {
+				page = 1
+			}
+			$(this).attr("href", `/search.html?nickname=${nick}&page=${page}`)
+		})
+		$('#rigth').click(function() {
+			if(!page) {
+				page = 1
+			}
+			page++;
+			if(page > tol) {
+				page = tol
+			}
+			$(this).attr("href", `/search.html?nickname=${nick}&page=${page}`)
+		})
 
-
-  })
+	})
 </script>

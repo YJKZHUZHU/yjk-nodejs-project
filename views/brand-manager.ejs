@@ -1,211 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/use-manager.css">
-    <link rel="stylesheet" href="/css/phonemanage.css">
-    <!-- <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"> -->
-    <script src="/lib/jquery/jquery.min.js"></script>
-    <script src="/js/highlight.js"></script>
-    <style>
-        .sizeimg img{
-            height: 60px;
-        }
-        .sizeimg {
-            display: inline-block;
-           margin-top: 5px;
-        }
-        .adddelete {
-            display: inline-block;
-            width: 40px;
-            margin-right: 32px;
-            
-        }
-    </style>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<link rel="stylesheet" href="/css/use-manager.css">
+		<link rel="stylesheet" href="/css/phonemanage.css">
+		<!-- <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"> -->
+		<script src="/lib/jquery/jquery.min.js"></script>
+		<script src="/js/highlight.js"></script>
+		<style>
+			.sizeimg img {
+				height: 60px;
+			}
+			
+			.sizeimg {
+				display: inline-block;
+				margin-top: 5px;
+			}
+			
+			.adddelete {
+				display: inline-block;
+				width: 40px;
+				margin-right: 32px;
+			}
+		</style>
+	</head>
 
-<body>
+	<body>
 
-    <div class="index">
+		<div class="index">
 
-        <%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
+			<%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
 
-        <div class="container">
+			<div class="container">
 
-            <%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
-            <div class="main">
-                <div class="line">
-                    <p class="new-add-phone" id="new-add-phone">新增品牌</p>
-                </div>
+				<%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
+				<div class="main">
+					<div class="line">
+						<p class="new-add-phone" id="new-add-phone">新增品牌</p>
+					</div>
 
+					<div class="phone-add" id="phone-add">
+						<!-- <form class="form-horizontal" id="addForm" action="javascript:;" method="post"> -->
+						<form enctype="multipart/form-data" id="addForm"></form>
+						<fieldset>
 
-                <div class="phone-add" id="phone-add">
-                    <!-- <form class="form-horizontal" id="addForm" action="javascript:;" method="post"> -->
-                    <form enctype="multipart/form-data" id="addForm"></form>
-                    <fieldset>
+							<legend>新增品牌</legend>
 
-                        <legend>新增品牌</legend>
+							<div class="control-group">
 
-                        <div class="control-group">
+								<div class="controls">
+									<span class="conmon">品牌logo:</span><input id="phonelogo" name="phonelogo" class="input-file" type="file">
+								</div>
+							</div>
+							<div class="control-group">
 
-                            <div class="controls">
-                                <span class="conmon">品牌logo:</span><input id="phonelogo" name="phonelogo" class="input-file"
-                                    type="file">
-                            </div>
-                        </div>
-                        <div class="control-group">
+								<div class="controls">
+									<span class="conmon">品牌名称:</span><input id="brandname" name="brandname" class="input-file" type="text" style=" border: 1px solid #333333">
+								</div>
+							</div>
+							<div class="buttons" style="margin-top:207px">
+								<button class="true" id="true">确认</button>
+								<span class="false" id="false">取消</span>
+							</div>
+						</fieldset>
+						</form>
+					</div>
+					<table border="1">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>品牌logo</th>
+								<th>品牌名称</th>
+								<th>操作</th>
+							</tr>
+						</thead>
 
-                            <div class="controls">
-                                <span class="conmon">品牌名称:</span><input id="brandname" name="brandname" class="input-file"
-                                    type="text" style=" border: 1px solid #333333">
-                            </div>
-                        </div>
-                        <div class="buttons" style="margin-top:207px">
-                            <button class="true" id="true">确认</button>
-                            <span class="false" id="false">取消</span>
-                        </div>
-                    </fieldset>
-                    </form>
+						<tbody>
+							<!-- 循环 userList 显示用户数据 -->
 
-                </div>
+							<% for (var i = 0; i < userList.length; i++) { %>
+							<!-- public/phone/<%= userList[i].phonelogo %> -->
+							<tr>
+								<td>
+									<%= userList[i]._id %>
+								</td>
+								<td><span class="sizeimg"><img src="/phone/<%= userList[i].phonelogo %>" width="60"></span></td>
+								<td>
+									<%= userList[i].brandname %>
+								</td>
 
-
-
-
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>品牌logo</th>
-                            <th>品牌名称</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <!-- 循环 userList 显示用户数据 -->
-
-                        <% for (var i = 0; i < userList.length; i++) { %>
-                        <!-- public/phone/<%= userList[i].phonelogo %> -->
-                        <tr>
-                            <td>
-                                <%= userList[i]._id %>
-                            </td>
-                            <td><span class="sizeimg"><img src="/phone/<%= userList[i].phonelogo %>" width="60"></span></td>
-                            <td>
-                                <%= userList[i].brandname %>
-                            </td>
-
-                            <td>
-                                <!--
+								<td>
+									<!--
                                   1:品牌只能删除不能随意更改
                                  -->
-                                 <a href="/brand/delete?id=<%= userList[i]._id %>" class="delete adddelete">删除</a>
-                                
+									<a href="/brand/delete?id=<%= userList[i]._id %>" class="delete adddelete">删除</a>
 
-                            </td>
-                        </tr>
-                        <% } %>
-                    </tbody>
-                </table>
+								</td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>
 
-                <!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
+					<!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
 
-                <ul class="list-page" style="margin-left:708px">
-                    <li class="left list-p">
-                        <a href="/brand-manager.html" id="left">
-                            <<</a> </li> <% for (var i=0; i < totalPage; i++) { %>
-                    <li class="list-p">
-                        <a href="/brand-manager.html?page=<%= i+1 %>">
-                            <%= i+1 %></a>
-                    </li>
-                    <% } %>
-                    <li class="right list-p">
-                        <a href="/brand-manager.html" id="rigth">>></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+					<ul class="list-page" style="margin-left:708px">
+						<li class="left list-p">
+							<a href="/brand-manager.html" id="left">
+								<<</a>
+						</li>
+						<% for (var i=0; i < totalPage; i++) { %>
+						<li class="list-p">
+							<a href="/brand-manager.html?page=<%= i+1 %>">
+								<%= i+1 %>
+							</a>
+						</li>
+						<% } %>
+						<li class="right list-p">
+							<a href="/brand-manager.html" id="rigth">>></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
-</body>
+	</body>
 
 </html>
 <script>
-    $(function () {
+	$(function() {
 
-        var str = location.href;
-        console.log(str)
-        var page = str.split("=")[1]
-        var tol = $('.list-p').length - 2;
-        console.log(tol)
-        $('#new-add-phone').click(function () {
-            $('#phone-add').fadeIn()
-        })
-        $('#false').click(function () {
-            $('#phone-add').fadeOut()
-        })
-        $('#true').click(function () {
-            var formData = new FormData()
-            var img_file = document.getElementById('phonelogo')
-            var phonelogo1 = img_file.files[0]
-            var brandname1 = $('#brandname').val()
-            formData.append('phonelogo', phonelogo1)
-            formData.append('brandname', brandname1)
-            console.log(formData)
-            $.ajax({
-                    url: '/brand/addbrand',
-                    type: 'post',
-                    data: formData,
-                    /**
-                     * 必须false才会避开jQuery对 formdata 的默认处理
-                     * XMLHttpRequest会对 formdata 进行正确的处理
-                     */
-                    processData: false,
-                    /**
-                     *必须false才会自动加上正确的Content-Type
-                     */
-                    contentType: false,
-                    success: function (result) {
-                        console.log(result)
-                        if (result.code === 0) {
-                            $('#phone-add').fadeOut()
-                            location.reload()
-                        } else {
-                            alert(result.msg)
-                        }
-                    }
-                }),
-                'json'
-        })
-        $("#left").click(function () {
-            if (!page) {
-                page = 1
-            }
-            page--
-            if (page === 0) {
-                page = 1
-            }
-            $(this).attr("href", `/brand-manager.html?page=${page}`)
-        })
-        $('#rigth').click(function () {
-            if (!page) {
-                page = 1
-            }
-            page++;
-            if (page > tol) {
-                page = tol
-            }
-            $(this).attr("href", `/brand-manager.html?page=${page}`)
-        })
-    })
-
-
-    
+		var str = location.href;
+		console.log(str)
+		var page = str.split("=")[1]
+		var tol = $('.list-p').length - 2;
+		console.log(tol)
+		$('#new-add-phone').click(function() {
+			$('#phone-add').fadeIn()
+		})
+		$('#false').click(function() {
+			$('#phone-add').fadeOut()
+		})
+		$('#true').click(function() {
+			var formData = new FormData()
+			var img_file = document.getElementById('phonelogo')
+			var phonelogo1 = img_file.files[0]
+			var brandname1 = $('#brandname').val()
+			formData.append('phonelogo', phonelogo1)
+			formData.append('brandname', brandname1)
+			console.log(formData)
+			$.ajax({
+					url: '/brand/addbrand',
+					type: 'post',
+					data: formData,
+					/**
+					 * 必须false才会避开jQuery对 formdata 的默认处理
+					 * XMLHttpRequest会对 formdata 进行正确的处理
+					 */
+					processData: false,
+					/**
+					 *必须false才会自动加上正确的Content-Type
+					 */
+					contentType: false,
+					success: function(result) {
+						console.log(result)
+						if(result.code === 0) {
+							$('#phone-add').fadeOut()
+							location.reload()
+						} else {
+							alert(result.msg)
+						}
+					}
+				}),
+				'json'
+		})
+		$("#left").click(function() {
+			if(!page) {
+				page = 1
+			}
+			page--
+			if(page === 0) {
+				page = 1
+			}
+			$(this).attr("href", `/brand-manager.html?page=${page}`)
+		})
+		$('#rigth').click(function() {
+			if(!page) {
+				page = 1
+			}
+			page++;
+			if(page > tol) {
+				page = tol
+			}
+			$(this).attr("href", `/brand-manager.html?page=${page}`)
+		})
+	})
 </script>

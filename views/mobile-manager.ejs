@@ -1,257 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/use-manager.css">
-    <link rel="stylesheet" href="/css/phonemanage.css">
-    <!-- <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"> -->
-    <script src="/lib/jquery/jquery.min.js"></script>
-    <script src="/js/highlight.js"></script>
-    <script src="/js/mobile-rand.js"></script>
-    <style>
-        .sizeimg img{
-            height: 100px;
-        }
-        .sizeimg {
-            display: inline-block;
-            margin-top: 5px;
-        }
-       
-    </style>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="/css/reset.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<link rel="stylesheet" href="/css/use-manager.css">
+		<link rel="stylesheet" href="/css/phonemanage.css">
+		<script src="/lib/jquery/jquery.min.js"></script>
+		<script src="/js/highlight.js"></script>
+		<script src="/js/mobile-rand.js"></script>
+		<style>
+			.sizeimg img {
+				height: 100px;
+			}
+			
+			.sizeimg {
+				display: inline-block;
+				margin-top: 5px;
+			}
+		</style>
+	</head>
 
-<body>
+	<body>
+		<div class="index">
+			<%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
+			<div class="container">
+				<%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
+				<div class="main">
+					<div class="line">
+						<p class="new-add-phone" id="new-add-phone">新增手机</p>
+					</div>
+					<!-- 添加手机信息 -->
+					<div class="phone-add" id="phone-add">
+						<form id="addForm" enctype="multipart/form-data"></form>
+						<fieldset>
+							<legend>新增手机</legend>
+							<div class="control-group">
+								<div class="controls">
+									<span class="conmon">手机名称:</span>
+									<input id="phonenickname" name="phonenickname" type="text" placeholder="手机名称" class="input-xlarge">
+								</div>
+							</div>
+							<div class="control-group">
 
-    <div class="index">
-
-        <%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
-
-        <div class="container">
-
-            <%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
-            <div class="main">
-                <div class="line">
-                    <p class="new-add-phone" id="new-add-phone">新增手机</p>
-                </div>
-
-                 <!-- 添加手机信息 -->
-                <div class="phone-add" id="phone-add">
-                    <!-- <form class="form-horizontal" id="addForm" action="javascript:;" method="post"> -->
-                   
-                    <form id="addForm" enctype="multipart/form-data"></form>
-                    <fieldset>
-
-                        <legend>新增手机</legend>
-
-                        <div class="control-group">
-
-                            <div class="controls">
-                                <span class="conmon">手机名称:</span><input id="phonenickname" name="phonenickname" type="text"
-                                    placeholder="手机名称" class="input-xlarge">
-                            </div>
-                        </div>
-                        <div class="control-group">
-
-                            <div class="controls">
-                                <span class="conmon">品牌:</span><select id="phonebrand" name="phonebrand" class="input-xlarge">
-                                    <!-- <option>苹果</option>
+								<div class="controls">
+									<span class="conmon">品牌:</span>
+									<select id="phonebrand" name="phonebrand" class="input-xlarge">
+										<!-- <option>苹果</option>
                                     <option>小米</option>
                                     <option>三星</option>
                                     <option>华为</option>
                                     <option>魅族</option>
                                     <option>OPPO</option>
                                     <option>VIVO</option> -->
-                                </select>
-                            </div>
-                        </div>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<span class="conmon">官方指导价:</span>
+									<input id="officialprice" name="officialprice" type="number" placeholder="官方指导价" class="input-xlarge">
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<span class="conmon">二手回收价:</span><input id="usedprice" name="usedprice" type="number" placeholder="二手回收价" class="input-xlarge">
+									<i id="remind" style="color:red;display:none">价格不合理</i>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<span class="conmon">图片:</span><input id="phonephoto" name="phonephoto" class="input-file" type="file">
+								</div>
+							</div>
+							<div class="buttons">
+								<button class="true" id="true">确认</button>
+								<span class="false" id="false">取消</span>
+							</div>
+						</fieldset>
+						</form>
+					</div>
 
-                        
-                        <div class="control-group">
+					<!-- 修改手机信息 -->
+					<div id="modifier">
+						<form class="form-horizontal" id="addForm" action="/mobile/modifier" method="post">
+							<!-- <form id="addForm" enctype="multipart/form-data"></form> -->
+							<fieldset>
+								<legend>修改手机信息</legend>
+								<div class="control-group">
+									<div class="controls" style="position:absolute;display:none">
+										<span class="conmon">id:</span>
+										<input id="phonenid1" name="phonenid1" type="text" placeholder="id" class="input-xlarge" readonly>
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="controls">
+										<span class="conmon">手机名称:</span>
+										<input id="phonenickname1" name="phonenickname" type="text" placeholder="手机名称" class="input-xlarge" readonly>
+									</div>
+								</div>
+								<div class="control-group">
 
-                            <div class="controls">
-                                <span class="conmon">官方指导价:</span><input id="officialprice" name="officialprice" type="number"
-                                    placeholder="官方指导价" class="input-xlarge">
-
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-
-                            <div class="controls">
-                                <span class="conmon">二手回收价:</span><input id="usedprice" name="usedprice" type="number"
-                                    placeholder="二手回收价" class="input-xlarge">
-                                <i id="remind" style="color:red;display:none">价格不合理</i>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-
-                            <div class="controls">
-                                <span class="conmon">图片:</span><input id="phonephoto" name="phonephoto" class="input-file"
-                                    type="file">
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <button class="true" id="true">确认</button>
-                            <span class="false" id="false">取消</span>
-                        </div>
-                    </fieldset>
-                    </form>
-                </div>
-
-
-                <!-- 修改手机信息 -->
-                <div   id="modifier" >
-                        <form class="form-horizontal" id="addForm" action="/mobile/modifier" method="post">
-                       
-                        <!-- <form id="addForm" enctype="multipart/form-data"></form> -->
-                        <fieldset>
-    
-                            <legend>修改手机信息</legend>
-                            
-                            <div class="control-group">
-    
-                                <div class="controls" style="position:absolute;display:none">
-                                    <span class="conmon">id:</span><input id="phonenid1" name="phonenid1" type="text"
-                                        placeholder="id" class="input-xlarge" readonly>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-    
-                                <div class="controls">
-                                    <span class="conmon">手机名称:</span><input id="phonenickname1" name="phonenickname" type="text"
-                                        placeholder="手机名称" class="input-xlarge" readonly>
-                                </div>
-                            </div>
-                            <div class="control-group">
-    
-                                <div class="controls">
-                                    <span class="conmon">品牌:</span><input id="phonebrand1" name="phonebrand1" type="text"
-                                    placeholder="手机名称" class="input-xlarge" readonly>
-                                </div>
-                            </div>
-    
-                            
-                            <div class="control-group">
-    
-                                <div class="controls">
-                                    <span class="conmon">官方指导价:</span><input id="officialprice1" name="officialprice" type="number"
-                                        placeholder="官方指导价" class="input-xlarge">
-    
-                                </div>
-                            </div>
-    
-                            <div class="control-group">
-    
-                                <div class="controls">
-                                    <span class="conmon">二手回收价:</span><input id="usedprice1" name="usedprice" type="number"
-                                        placeholder="二手回收价" class="input-xlarge">
-                                    <i id="remind" style="color:red;display:none">价格不合理</i>
-                                </div>
-                            </div>
-                            <div class="buttons">
-                                <button class="true" id="true-modifier">确认</button>
-                                <span class="false" id="false-modifier">取消</span>
-                            </div>
-                        </fieldset>
-                        </form>
-                    </div>
-
-
-
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>图片</th>
-                            <th>手机名称</th>
-                            <th>所属品牌</th>
-                            <th>官方指导价</th>
-                            <th>二手回收价</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <!-- 循环 userList 显示用户数据 -->
-
-                        <% for (var i = 0; i < userList.length; i++) { %>
-
-                        <tr>
-                            <td id="tid" class="tid">
-                                <%= userList[i]._id %>
-                            </td>
-                            <td>
-                                <span class="sizeimg"><img src="/phoneimg/<%= userList[i].phonephoto %>" width="100"></span>
-                            </td>
-                            <td class="phonenickname">
-                                <%= userList[i].phonenickname %>
-                            </td>
-                            <td class="phonebrand">
-                                <%= userList[i].phonebrand %>
-                            </td>
-                            <td style="color:red" class="offprice">￥
-                                <%= userList[i].officialprice %>
-                            </td>
-                            <td style="color:red" class="usedprice">￥
-                                <%= userList[i].usedprice %>
-                            </td>
-
-                            <td class="lasttd">
-                                <!--
+									<div class="controls">
+										<span class="conmon">品牌:</span>
+										<input id="phonebrand1" name="phonebrand1" type="text" placeholder="手机名称" class="input-xlarge" readonly>
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="controls">
+										<span class="conmon">官方指导价:</span>
+										<input id="officialprice1" name="officialprice" type="number" placeholder="官方指导价" class="input-xlarge">
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="controls">
+										<span class="conmon">二手回收价:</span><input id="usedprice1" name="usedprice" type="number" placeholder="二手回收价" class="input-xlarge">
+										<i id="remind1" style="color:red;display:none">价格不合理</i>
+									</div>
+								</div>
+								<div class="buttons">
+									<button class="true" id="true-modifier">确认</button>
+									<span class="false" id="false-modifier">取消</span>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<table border="1">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>图片</th>
+								<th>手机名称</th>
+								<th>所属品牌</th>
+								<th>官方指导价</th>
+								<th>二手回收价</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- 循环 userList 显示用户数据 -->
+							<% for (var i = 0; i < userList.length; i++) { %>
+							<tr>
+								<td id="tid" class="tid">
+									<%= userList[i]._id %>
+								</td>
+								<td>
+									<span class="sizeimg"><img src="/phoneimg/<%= userList[i].phonephoto %>" width="100"></span>
+								</td>
+								<td class="phonenickname">
+									<%= userList[i].phonenickname %>
+								</td>
+								<td class="phonebrand">
+									<%= userList[i].phonebrand %>
+								</td>
+								<td style="color:red" class="offprice">￥
+									<%= userList[i].officialprice %>
+								</td>
+								<td style="color:red" class="usedprice">￥
+									<%= userList[i].usedprice %>
+								</td>
+								<td class="lasttd">
+									<!--
                                   1. 如果当前登录的管理员跟这条记录匹配。那么可以修改，
                                   2. 如果这条记录是管理员记录的话，那么不可以删除
                                  -->
+									<% if (userList[i].username === username) { %>
+									<a href="javascript::" class="rewrite" id="rewrite">修改</a>
+									<% } else if (parseInt(userList[i].is_admin)) { %>
 
-                                <% if (userList[i].username === username) { %>
-                                <a href="javascript::" class="rewrite" id="rewrite">修改</a>
-                                <% } else if (parseInt(userList[i].is_admin)) { %>
-
-                                <% } else { %>
-                                <a href="javascript::" class="rewrite" id="rewrite">修改</a>
-                                <a href="/mobile/delete?id=<%= userList[i]._id %>" class="delete">删除</a>
-                                <% } %>
-                            </td>
-                        </tr>
-                        <% } %>
-
-                    </tbody>
-                </table>
-
-                <!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
-
-                <ul class="list-page">
-                    <li class="left list-p">
-                        <a href="/mobile-manager.html" id="left"><<</a>
-                    </li> 
-                    <% for (var i=0; i < totalPage; i++) { %>
-                    <li class="list-p">
-                        <a href="/mobile-manager.html?page=<%= i+1 %>">
-                            <%= i+1 %></a>
-                    </li>
-                    <% } %>
-                    <li class="right list-p">
-                        <a href="/mobile-manager.html" id="rigth">>></a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
-
-</body>
+									<% } else { %>
+									<a href="javascript::" class="rewrite" id="rewrite">修改</a>
+									<a href="/mobile/delete?id=<%= userList[i]._id %>" class="delete">删除</a>
+									<% } %>
+								</td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>
+					<!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
+					<ul class="list-page">
+						<li class="left list-p">
+							<a href="/mobile-manager.html" id="left">
+								<<</a>
+						</li>
+						<% for (var i=0; i < totalPage; i++) { %>
+						<li class="list-p">
+							<a href="/mobile-manager.html?page=<%= i+1 %>">
+								<%= i+1 %>
+							</a>
+						</li>
+						<% } %>
+						<li class="right list-p">
+							<a href="/mobile-manager.html" id="rigth">>></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
 
 </html>
 <script>
-    $(function () {
-
-        
-    })
 </script>
